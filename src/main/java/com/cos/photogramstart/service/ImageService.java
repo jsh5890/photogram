@@ -1,5 +1,6 @@
 package com.cos.photogramstart.service;
 
+import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -63,6 +64,11 @@ public class ImageService {
 		System.out.println("이미지 파일이름 : "+imageFileName);
 		
 		Path imageFilePath = Paths.get(uploadFolder+imageFileName);
+		
+		File Folder = new File(uploadFolder);
+		if (!Folder.exists()) {
+			Folder.mkdirs();
+        }
 		
 		// 통신, I/O -> 예외가 발생할 수 있다.
 		try {
