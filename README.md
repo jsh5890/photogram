@@ -1,12 +1,10 @@
-# 포토그램 - 인스타그램 클론 코딩
-
-### STS 툴에 세팅하기 - 플러그인 설정
-- https://blog.naver.com/getinthere/222322821611
+# 클론코딩 
 
 ### 의존성
 
 - Sring Boot DevTools
 - Lombok
+- hibernate
 - Spring Data JPA
 - MariaDB Driver
 - Spring Security
@@ -34,6 +32,11 @@
 </dependency>
 
 <dependency>
+    <groupId>com.h2database</groupId>
+    <artifactId>h2</artifactId>
+</dependency>
+
+<dependency>
 	<groupId>org.springframework.boot</groupId>
 	<artifactId>spring-boot-starter-aop</artifactId>
 </dependency>
@@ -44,45 +47,42 @@
 </dependency>
 ```
 
-### 데이터베이스
-
-```sql
-create user 'cos'@'%' identified by 'cos1234';
-GRANT ALL PRIVILEGES ON *.* TO 'cos'@'%';
-create database photogram;
-```
-
 ### yml 설정
 
 ```yml
-server:
-  port: 8080
-  servlet:
-    context-path: /
-    encoding:
-      charset: utf-8
-      enabled: true
-    
 spring:
   mvc:
     view:
       prefix: /WEB-INF/views/
       suffix: .jsp
-      
+
+  #  datasource:
+  #    driver-class-name: org.mariadb.jdbc.Driver
+  #    url: jdbc:mariadb://localhost:3306/photogram?serverTimezone=Asia/Seoul
+  #    username: jsh
+  #    password: 1234
+  #    
   datasource:
-    driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://localhost:3306/costa?serverTimezone=Asia/Seoul
-    username: costa
-    password: costa1234
-    
+    hikari:
+      jdbc-url: jdbc:h2:mem:testdb;MODE=MYSQL
+      username: sa
+
   jpa:
     open-in-view: true
     hibernate:
-      ddl-auto: update
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     show-sql: true
-      
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL57Dialect
+
+  h2:
+    console:
+      settings:
+        web-allow-others: true
+      enabled: true
+
   servlet:
     multipart:
       enabled: true
@@ -91,10 +91,22 @@ spring:
   security:
     user:
       name: test
-      password: 1234   
+      password: 1234
+
+    oauth2:
+      client:
+        registration:
+          facebook:
+            client-id: 315293796826930
+            client-secret: 487af9479023b8c0e58f913b411327cf
+            scope:
+              - public_profile
+              - email
+
 
 file:
-  path: C:/src/springbootwork-sts/upload/
+  path: D:/image/
+
 ```
 
 ### 태그라이브러리
