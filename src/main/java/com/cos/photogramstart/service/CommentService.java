@@ -39,7 +39,7 @@ public class CommentService {
 		
 		return commentRepository.save(comment);
 	}
-	
+
 	@Transactional
 	public void 댓글삭제(int id) {
 		try {
