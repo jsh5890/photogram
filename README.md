@@ -56,12 +56,6 @@ spring:
       prefix: /WEB-INF/views/
       suffix: .jsp
 
-  #  datasource:
-  #    driver-class-name: org.mariadb.jdbc.Driver
-  #    url: jdbc:mariadb://localhost:3306/photogram?serverTimezone=Asia/Seoul
-  #    username: jsh
-  #    password: 1234
-  #    
   datasource:
     hikari:
       jdbc-url: jdbc:h2:mem:testdb;MODE=MYSQL
